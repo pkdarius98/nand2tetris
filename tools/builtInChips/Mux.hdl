@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: tools/builtInChips/Mux.hdl
-/** 
+/**
  * Multiplexor:
  * out = ((sel == 0), a, b)
  */

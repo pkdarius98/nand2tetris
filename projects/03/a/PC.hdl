@@ -6,7 +6,7 @@
  * else                    out(t+1) = out(t).
  *
  * To select a mode, assert the relevant control bit,
- * and de-assert the other two bits. 
+ * and de-assert the other two bits.
  */
 CHIP PC {
     IN in[16],inc, load, reset;

@@ -1,5 +1,5 @@
 /**
- * 16-bit multiplexor: 
+ * 16-bit multiplexor:
  * out[i] = ((sel == 0), a[i], b[i]); for i = 0..15
  */
 CHIP Mux16 {

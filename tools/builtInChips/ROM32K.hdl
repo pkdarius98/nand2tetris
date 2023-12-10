@@ -6,11 +6,11 @@
  * Read-Only memory (ROM) of 32K registers, each 16-bit wide.
  * Facilitates data read, as follows:
  *     out(t) = ROM32K[address(t)](t)
- * In words: the chip outputs the value stored at the 
+ * In words: the chip outputs the value stored at the
  * memory location specified by address.
  *
  * Can be used to serve as the instruction memory of the Hack computer.
- * To that end, the built-in chip implementation supports the handling 
+ * To that end, the built-in chip implementation supports the handling
  * of the "ROM32K load Xxx" script command, where Xxx is the name of a
  * text file containing a program written in the Hack machine language.
  * When the simulator encounters such a command in a test script,

@@ -4,7 +4,7 @@
 // File name: tools/builtInChips/Not16.hdl
 /**
  * 16-bit Not gate:
- * out[i] = ((in[i] == 0), 1, 0) for i = 0..15 
+ * out[i] = ((in[i] == 0), 1, 0) for i = 0..15
  */
  CHIP Not16 {
 

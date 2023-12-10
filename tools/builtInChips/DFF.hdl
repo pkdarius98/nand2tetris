@@ -3,7 +3,7 @@
 // by Nisan and Schocken, MIT Press.
 // File name: tools/builtInChips/DFF.hdl
 /**
- * Data Flip-flop: out(t) = in(t-1) 
+ * Data Flip-flop: out(t) = in(t-1)
  * where t is the current time unit, or clock cycle.
  */
 CHIP DFF {

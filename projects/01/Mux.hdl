@@ -1,4 +1,4 @@
-/** 
+/**
  * Multiplexor:
  * out = ((sel == 0), a, b)
  */

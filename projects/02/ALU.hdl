@@ -22,15 +22,15 @@
 // if (f == 0)  sets out = x & y  // bitwise and
 // if (no == 1) sets out = !out   // bitwise not
 CHIP ALU {
-    IN  
-        x[16], y[16],  // 16-bit inputs        
+    IN
+        x[16], y[16],  // 16-bit inputs    
         zx, // zero the x input?
         nx, // negate the x input?
         zy, // zero the y input?
         ny, // negate the y input?
         f,  // compute (out = x + y) or (out = x & y)?
         no; // negate the out output?
-    OUT 
+    OUT
         out[16], // 16-bit output
         zr,      // (out == 0, 1, 0)
         ng;      // (out < 0,  1, 0)
@@ -58,7 +58,7 @@ CHIP ALU {
     // Mux to negate output
     Not16(in=xy,out=negxy);
     Mux16(a=xy,b=negxy,sel=no,out=out,out[15]=signbit,out[0..7]=fhb,out[8..15]=lhb);
-    
+
     Or8Way(in=fhb, out=o1);
     Or8Way(in=lhb, out=o2);
     Or(a=o1,b=o2,out=notzr);

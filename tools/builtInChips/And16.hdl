@@ -4,7 +4,7 @@
 // File name: tools/builtInChips/And16.hdl
 /**
  * 16-bit bitwise And gate:
- * out[i] = And(a[i],b[i]) for i = 0..15 
+ * out[i] = And(a[i],b[i]) for i = 0..15
  */
 CHIP And16 {
 

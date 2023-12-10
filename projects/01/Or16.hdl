@@ -1,6 +1,6 @@
 /**
  * 16-bit bitwise Or gate:
- * out[i] = (a[i] Or b[i]) for i = 0..15 
+ * out[i] = (a[i] Or b[i]) for i = 0..15
  */
 CHIP Or16 {
     IN a[16], b[16];
