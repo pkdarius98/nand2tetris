@@ -1,8 +1,3 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/03/a/PC.hdl
-
 /**
  * A 16-bit counter with increment, load, and reset modes.
  * if      (inc(t) == 1)   out(t+1) = out(t) + 1
@@ -18,5 +13,9 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    //// Replace this comment with your code.
+    Inc16(in=outt, out=incin);
+    Mux16(a=in, b=incin, sel=inc, out=incout);
+    Mux16(a=incout, b=in, sel=load, out=loadout);
+    Mux16(a=loadout, sel=reset, out=resetout);
+    Register(in=resetout, load=true, out=out, out=outt);
 }
