@@ -1,7 +1,3 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/05/CPU.hdl
 /**
  * The Hack Central Processing unit (CPU).
  * Parses the binary code in the instruction input and executes it according to the
@@ -32,5 +28,62 @@ CHIP CPU {
         pc[15];          // Address of next instruction
 
     PARTS:
-    //// Replace this comment with your code.
+    And16(
+        a=instruction,
+        b=instruction,
+
+        out[15]=type,
+        out[12]=acomp0,
+        out[11]=zx0,
+        out[10]=nx0,
+        out[9]=zy0,
+        out[8]=ny0,
+        out[7]=f0,
+        out[6]=no0,
+        out[5]=dest20,
+        out[4]=dest10, 
+        out[3]=dest00,
+        out[2]=jump20,
+        out[1]=jump10,
+        out[0]=jump00
+        );
+
+
+    And(a=type, b = acomp0, out = acomp);
+    And(a=type, b = zx0, out = zx);
+    And(a=type, b = nx0, out = nx);
+    And(a=type, b = zy0, out = zy);
+    And(a=type, b = ny0, out = ny);
+    And(a=type, b = f0, out = f);
+    And(a=type, b = no0, out = no);
+
+    Not(in=type, out=nottype);
+    Or(a=nottype, b = dest20, out = loadToARegister);
+
+    And(a=type, b = dest10, out = dest1);
+    And(a=type, b = dest00, out = writeM);
+    And(a=type, b = jump20, out = jump2);
+    And(a=type, b = jump10, out = jump1);
+    And(a=type, b = jump00, out = jump0);
+
+    Mux16(a=aluOut,b=instruction,sel=nottype,out=aRegisterIn);
+
+    ARegister(in=aRegisterIn, load=loadToARegister, out=aRegisterOut, out[0..14]=addressM);
+
+    Mux16(a=aRegisterOut, b=inM, sel=acomp, out=aluIn);
+    
+    ALU(x=dRegisterOut, y=aluIn, zx=zx, nx=nx, zy=zy, ny=ny, f=f, no=no, out=aluOut, out=outM, zr=zr, ng=ng);
+    
+    DRegister(in=aluOut, load=dest1, out=dRegisterOut);
+
+    Not(in=ng, out=notng);
+    Not(in=zr, out=notzr);
+    And(a=notng, b=notzr,out=pg);
+    And(a=pg, b=jump0, out=jgt);
+    And(a=zr, b=jump1,out=jeq);
+    And(a=ng, b=jump2,out=jlt);
+    Or(a=jgt,b=jeq,out=or0);
+    Or(a=or0,b=jlt,out=or1);
+    Not(in=or1,out=notor1);
+    PC(in=aRegisterOut, load=or1, inc=notor1, reset=reset, out[0..14]=pc);
 }
