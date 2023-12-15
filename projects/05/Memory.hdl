@@ -1,7 +1,3 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/05/Memory.hdl
 /**
  * The Memory chip implements the complete address space of the Hack data memory,
  * including RAM, memory mapped screen, and memory mapped keyboard.
@@ -19,5 +15,22 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    //// Replace this comment with your code.
+    And16(a[0..14]=address, b[0..14]=address, out[14]=isNotRam,out[0..13]=addressRam,out[0..12]=addressScreen);
+    Not(in=isNotRam, out=isRam);
+
+    And(a=load, b=isRam, out=isLoadRam);
+    Mux16(a=ramOut, b=in, sel=isLoadRam, out=ramIn);
+    RAM16K(in=ramIn, load=isLoadRam, address=addressRam, out=ramOut);
+
+    And(a=load, b=isNotRam, out=isLoadScreen);
+    Mux16(a=screenOut, b=in, sel=isLoadScreen, out=screenIn);
+    Screen(in=screenIn, load=isLoadScreen, address=addressScreen, out=screenOut);
+    
+    Keyboard(out=keyboardOut);
+    And16(a=keyboardOut,b=keyboardOut,out[0..7]=keyboardIn);
+
+    Or8Way(in=keyboardIn, out=isKeyBoard);
+
+    Mux16(a=ramOut, b=screenOut, sel=isNotRam, out=screenOrRamOut);
+    Mux16(a=screenOrRamOut, b=keyboardOut, sel=isKeyBoard, out=out);
 }
